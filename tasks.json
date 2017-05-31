@@ -1,0 +1,61 @@
+[
+  {
+    "name": "Phylogenetic signal",
+    "mode": "docker",
+    "inputs": [
+      {
+        "description": "",
+        "target": "filepath",
+        "required": true,
+        "type": "file",
+        "id": "tree",
+        "name": "The phylogenetic tree"
+      },
+      {
+        "description": "",
+        "target": "filepath",
+        "required": true,
+        "type": "file",
+        "id": "table",
+        "name": "The character matrix"
+      },
+      {
+        "values": [
+          "lambda",
+          "K"
+        ],
+        "description": "",
+        "default": {
+          "data": "lambda"
+        },
+        "required": false,
+        "type": "string-enumeration",
+        "id": "method",
+        "name": "Method"
+      },
+      {
+        "description": "",
+        "required": true,
+        "type": "string",
+        "id": "column",
+        "name": "Column"
+      }
+    ],
+    "outputs": [
+      {
+        "target": "filepath",
+        "name": "Model fit",
+        "type": "new-file",
+        "id": "fit",
+        "description": ""
+      }
+    ],
+    "container_args": [
+      "$input{tree}",
+      "$input{table}",
+      "$input{method}",
+      "$input{column}",
+      "/mnt/girder_worker/data/fit"
+    ]
+  }
+]
