@@ -15,14 +15,15 @@ docker run <docker_options> kitware/arbordock <arg1> ...
 ```
 
 In order to send data files to Docker, mount a volume and use the mounted
-volume prefix for the input and output paths. For example, if `myinput.csv`
-is in your current directory, the following will produce `myoutput.csv` in
-the current directory:
+volume prefix for the input and output paths. For example, if `anolis.phy`
+and `anolis.csv` are in your current directory (these are available in
+the Git repository), the following will produce `svl-model.csv` in the current
+directory:
 ```
-docker run -v $PWD:/data kitware/arbordock <arg1> ...
+docker run -v $PWD:/data kitware/arbordock /data/anolis.phy /data/anolis.csv lambda SVL /data/svl-model.csv
 ```
 
-Build the Docker image:
+To build the Docker image locally:
 ```
 git clone https://github.com/arborworkflows/arbordock.git
 cd arbordock
@@ -39,7 +40,8 @@ above to use your local version.
 * Start a `girder_worker` Celery worker and point it and the Worker plugin settings to use the same task queue.
 * From any folder you have write access to (you must be admin), select
   "Add tasks" from the actions menu.
-* Enter "kitware/arbordock" as the image name and click Run.
-* When that task completes, navigate to a created task item and select
-  "Run task" from the actions menu.
-* Fill in the task parameters and click Run.
+* Enter "kitware/arbordock" as the image name and click Run. Wait for the task to complete, which could take a few minutes.
+* Upload `anolis.phy` (tree) and `anolis.csv` (character matrix) into Girder.
+* Go to "Phylogenetic signal" from the Tasks page in the left sidebar.
+* Fill in the task parameters (enter a column name from the character matrix such as "SVL" for the column parameter) and click Run.
+* Click "View output item" under "Outputs" on the task page to see the resulting model fit parameters.
